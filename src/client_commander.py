@@ -35,7 +35,7 @@ class ClientCommander:
         """
         command = ClientCommander._get_command()
         self._parse_command(command)
-        while command is not 'x':
+        while command != "exit":
             command = ClientCommander._get_command()
             self._parse_command(command)
 

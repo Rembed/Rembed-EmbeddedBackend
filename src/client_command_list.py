@@ -11,11 +11,14 @@ class ClientCommandList:
     def __init__(self):
         self._commands = {}
 
-    def x(self):
-        print("you typed the x command")
+    def exit(self):
+        return None
 
     def list(self):
         print("Available commands:")
         for element in inspect.getmembers(self):
             if element[0][0] is not "_":
                 print(element[0])
+
+    def list_servers(self):
+        return None
