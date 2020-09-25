@@ -5,11 +5,23 @@ Brief: This file shall hold all commands to be handled by the client_commander a
 """
 
 import inspect
+import yaml
 
 
 class ClientCommandList:
     def __init__(self):
-        None
+        self._servers = None
+        self._load_yaml()
+        if self._servers is None:
+            self._servers = {}
+
+    def _dump_yaml(self):
+        with open("src/servers.yaml", "w") as file:
+            yaml.safe_dump(self._servers, file)
+
+    def _load_yaml(self):
+        with open("src/servers.yaml", "r") as servers:
+            self._servers = yaml.safe_load(servers)
 
     def exit(self, args):
         return None
@@ -35,9 +47,11 @@ class ClientCommandList:
                 return None
             # check to make sure enough arguments are given
             elif args[3]:
-                None
-            else:
-                return None
+                self._servers[args[1]] = {}
+                self._servers[args[1]]["IP"] = args[2]
+                self._servers[args[1]]["Port"] = args[3]
+                self._dump_yaml()
+
         except IndexError:
             print("Not enough arguments given, type \"server_add help\" for more")
 
@@ -46,8 +60,29 @@ class ClientCommandList:
             if args[1] == "help":
                 print("Lists all known servers as their alias, ip, and port")
                 return None
+
         except IndexError:
+            for server in self._servers:
+                print("Alias: " + server + "\n" +
+                      "IP: " + self._servers[server]["IP"] + "\n" +
+                      "Port: " + self._servers[server]["Port"] + "\n")
             return None
+
+    def server_remove(self, args):
+        try:
+            if args[1] == "help":
+                print("Removes a server from the list by its alias\n"
+                      "arguments: <alias>, the alias used to remove the saved server")
+            else:
+                try:
+                    self._servers.pop(args[1])
+                except KeyError:
+                    print("Server alias not found, type \"list_server\" for all saved servers")
+                    self._load_yaml()
+                self._dump_yaml()
+
+        except IndexError:
+            print("No alias given, type \"server_remove help\" for more")
 
     def server_ping(self, args):
         try:
