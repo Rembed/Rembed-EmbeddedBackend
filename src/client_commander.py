@@ -16,13 +16,13 @@ class ClientCommander:
 
     @staticmethod
     def _get_command():
-        return input("Enter command (type list for all commands)\n")
+        return input("Enter command (type list for all commands, <command> help for more)\n").split(" ")
 
     def _parse_command(self, command):
         try:
-            self._command_list[command]()
+            self._command_list[command[0]](command)
         except KeyError:
-            print("Command \"" + command + "\" not found\n")
+            print("Command \"" + command[0] + "\" not found")
 
     def _construct_command_list(self):
         for element in inspect.getmembers(self._client_command_list):
@@ -35,8 +35,9 @@ class ClientCommander:
         """
         command = ClientCommander._get_command()
         self._parse_command(command)
-        while command != "exit":
+        print()
+        while command[0] != "exit":
             command = ClientCommander._get_command()
             self._parse_command(command)
-
+            print()
         print("Shutting down")
