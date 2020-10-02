@@ -6,6 +6,7 @@ Brief: This file shall hold all commands to be handled by the client_commander a
 
 import inspect
 import yaml
+from src import rembed_manager
 
 
 class ClientCommandList:
@@ -34,7 +35,7 @@ class ClientCommandList:
         except IndexError:
             print("Available commands:")
             for element in inspect.getmembers(self):
-                if element[0][0] is not "_":
+                if element[0][0] != "_":
                     print(element[0])
 
     def server_add(self, args):
@@ -101,5 +102,8 @@ class ClientCommandList:
             if args[1] == "help":
                 print("Starts the rembed client for remote embedded operations\n"
                       "arguments: <alias>, the server alias to connect to")
+            else:
+                _rembed_manager = rembed_manager.RembedManager(args[1])
+                _rembed_manager.start()
         except IndexError:
             print("No alias given, type \"server_remove help\" for more")

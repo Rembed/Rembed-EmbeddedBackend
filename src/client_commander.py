@@ -26,7 +26,7 @@ class ClientCommander:
 
     def _construct_command_list(self):
         for element in inspect.getmembers(self._client_command_list):
-            if element[0][0] is not "_":
+            if element[0][0] != "_":
                 self._command_list[element[0]] = element[1]
 
     def run(self):
