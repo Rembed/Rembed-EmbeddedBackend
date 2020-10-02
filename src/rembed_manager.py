@@ -8,6 +8,7 @@ Brief: This file is the main manager for the rembed application as it pertains t
 import yaml
 import subprocess
 
+
 class RembedManager:
     def __init__(self, _server_alias):
         self._server_list = {}
@@ -18,4 +19,4 @@ class RembedManager:
         self._server_port = self._server_list[_server_alias]["Port"]
 
     def start(self):
-        subprocess.call("STLinkInternetBridge.sh")
+        subprocess.call("../STLinkInternetBridge.sh")
