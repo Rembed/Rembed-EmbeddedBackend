@@ -91,7 +91,15 @@ class ClientCommandList:
                       "arguments: <alias>, the alias of the server you want to ping")
                 return None
             else:
-                None
+                print("P")
 
         except IndexError:
-            print("No alias given")
+            print("No alias given, type \"server_ping help\" for more")
+
+    def start_rembed(self, args):
+        try:
+            if args[1] == "help":
+                print("Starts the rembed client for remote embedded operations\n"
+                      "arguments: <alias>, the server alias to connect to")
+        except IndexError:
+            print("No alias given, type \"server_remove help\" for more")
