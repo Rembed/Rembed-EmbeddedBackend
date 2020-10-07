@@ -18,5 +18,8 @@ class RembedManager:
         self._server_ip = self._server_list[_server_alias]["IP"]
         self._server_port = self._server_list[_server_alias]["Port"]
 
+    """
+    put main application stuff here
+    """
     def start(self):
-        subprocess.call("../STLinkInternetBridge.sh")
+        None
